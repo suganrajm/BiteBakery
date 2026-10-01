@@ -1,0 +1,1731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Bite Bakery</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI",sans-serif;
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#fff8f5;
+    color:#3d2630;
+}
+
+/* NAVBAR */
+
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:white;
+    box-shadow:0 4px 20px rgba(0,0,0,.08);
+}
+
+.navbar{
+    max-width:1200px;
+    margin:auto;
+    padding:16px 25px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo{
+    font-size:27px;
+    font-weight:800;
+    color:#ff4f81;
+}
+
+.logo span{
+    color:#ff9f1c;
+}
+
+.nav-links{
+    display:flex;
+    gap:25px;
+    list-style:none;
+}
+
+.nav-links a{
+    text-decoration:none;
+    color:#4b3038;
+    font-weight:600;
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    color:#ff4f81;
+}
+
+.order-btn{
+    background:linear-gradient(135deg,#ff4f81,#ff9f1c);
+    color:white;
+    padding:11px 20px;
+    border-radius:30px;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+/* HERO */
+
+.hero{
+    min-height:600px;
+    display:flex;
+    align-items:center;
+    background:
+    linear-gradient(90deg,rgba(255,248,245,.98) 35%,rgba(255,248,245,.4)),
+    url("https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=1600&q=80");
+    background-size:cover;
+    background-position:center;
+}
+
+.hero-content{
+    max-width:1200px;
+    width:100%;
+    margin:auto;
+    padding:50px 25px;
+}
+
+.badge{
+    display:inline-block;
+    background:#ffe0ea;
+    color:#ff3972;
+    padding:9px 17px;
+    border-radius:30px;
+    font-weight:bold;
+    margin-bottom:18px;
+}
+
+.hero h1{
+    font-size:62px;
+    line-height:1.05;
+    max-width:650px;
+}
+
+.hero h1 span{
+    color:#ff4f81;
+}
+
+.hero p{
+    max-width:550px;
+    font-size:18px;
+    margin:22px 0;
+    color:#6c515a;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.primary-btn,
+.secondary-btn{
+    padding:14px 24px;
+    border-radius:30px;
+    text-decoration:none;
+    font-weight:bold;
+    display:inline-block;
+}
+
+.primary-btn{
+    background:#ff4f81;
+    color:white;
+}
+
+.secondary-btn{
+    border:2px solid #ff4f81;
+    color:#ff4f81;
+    background:white;
+}
+
+/* SECTIONS */
+
+section{
+    padding:75px 20px;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:45px;
+}
+
+.section-title small{
+    color:#ff4f81;
+    font-weight:bold;
+    font-size:15px;
+}
+
+.section-title h2{
+    font-size:38px;
+    margin-top:8px;
+}
+
+/* FEATURES */
+
+.features{
+    max-width:1100px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:25px;
+}
+
+.feature{
+    background:white;
+    padding:30px;
+    text-align:center;
+    border-radius:20px;
+    box-shadow:0 8px 30px rgba(0,0,0,.07);
+}
+
+.feature-icon{
+    font-size:40px;
+    margin-bottom:15px;
+}
+
+/* MENU */
+
+.menu{
+    background:#fff0f5;
+}
+
+.menu-grid{
+    max-width:1200px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:22px;
+}
+
+.card{
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 7px 25px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+}
+
+.card img{
+    width:100%;
+    height:190px;
+    object-fit:cover;
+}
+
+.card-content{
+    padding:18px;
+}
+
+.card-content h3{
+    font-size:20px;
+}
+
+.card-content p{
+    color:#806870;
+    font-size:14px;
+    margin:8px 0;
+}
+
+.price{
+    color:#ff4f81;
+    font-size:21px;
+    font-weight:800;
+}
+
+.add-btn{
+    margin-top:12px;
+    width:100%;
+    border:none;
+    background:#ff4f81;
+    color:white;
+    padding:11px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.add-btn:hover{
+    background:#e93668;
+}
+
+/* GALLERY */
+
+.gallery{
+    max-width:1200px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+.gallery img{
+    width:100%;
+    height:230px;
+    object-fit:cover;
+    border-radius:18px;
+    transition:.3s;
+}
+
+.gallery img:hover{
+    transform:scale(1.04);
+}
+
+/* CUSTOM CAKE ORDER */
+
+.custom-order{
+    background:#fff0f5;
+}
+
+@property --order-border-angle{
+    syntax:"<angle>";
+    initial-value:0deg;
+    inherits:false;
+}
+
+@keyframes rotate-order-border{
+    to{
+        --order-border-angle:360deg;
+    }
+}
+
+.custom-order-form{
+    max-width:900px;
+    margin:auto;
+    padding:32px;
+    border:3px solid transparent;
+    border-radius:20px;
+    background:
+        linear-gradient(white,white) padding-box,
+        conic-gradient(from var(--order-border-angle),#ff4f81,#ff9f1c,#ffd166,#45b982,#35b9d1,#ff4f81) border-box;
+    box-shadow:0 8px 30px rgba(61,38,48,.08);
+    animation:rotate-order-border 6s linear infinite;
+}
+
+@media(prefers-reduced-motion:reduce){
+    .custom-order-form{
+        animation:none;
+    }
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:20px;
+}
+
+.form-field{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.form-field.is-hidden{
+    display:none;
+}
+
+.form-field.full-width,
+.form-extras{
+    grid-column:1 / -1;
+}
+
+.form-field label,
+.form-extras legend{
+    color:#4b3038;
+    font-weight:700;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea{
+    width:100%;
+    min-height:48px;
+    padding:12px 14px;
+    border:1px solid #e6d5db;
+    border-radius:9px;
+    background:#fffdfd;
+    color:#3d2630;
+    font:inherit;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus{
+    outline:2px solid #ff8bab;
+    outline-offset:2px;
+}
+
+.form-field textarea{
+    min-height:115px;
+    resize:vertical;
+}
+
+.form-extras{
+    min-width:0;
+    padding:0;
+    border:0;
+}
+
+.extras-list{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px 18px;
+    margin-top:10px;
+}
+
+.extras-list label{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:#6c515a;
+}
+
+.extras-list input{
+    accent-color:#ff4f81;
+}
+
+.custom-order-submit{
+    grid-column:1 / -1;
+    min-height:50px;
+    border:0;
+    border-radius:10px;
+    background:#25D366;
+    color:white;
+    font:inherit;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.custom-order-submit:hover{
+    background:#1eae54;
+}
+
+/* ORDER */
+
+.order-section{
+    background:linear-gradient(135deg,#ff4f81,#ff9f1c);
+    color:white;
+}
+
+.order-box{
+    max-width:900px;
+    margin:auto;
+    text-align:center;
+}
+
+.order-box h2{
+    font-size:42px;
+    margin-bottom:15px;
+}
+
+.order-box p{
+    margin-bottom:25px;
+}
+
+.whatsapp{
+    display:inline-block;
+    background:#25D366;
+    color:white;
+    padding:15px 28px;
+    border-radius:35px;
+    text-decoration:none;
+    font-weight:bold;
+    font-size:17px;
+}
+
+/* CART */
+
+.cart{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    width:350px;
+    max-width:calc(100% - 40px);
+    background:white;
+    border-radius:20px;
+    box-shadow:0 10px 40px rgba(0,0,0,.2);
+    z-index:2000;
+    display:none;
+}
+
+.cart.active{
+    display:block;
+}
+
+.cart-header{
+    background:#ff4f81;
+    color:white;
+    padding:16px;
+    border-radius:20px 20px 0 0;
+    display:flex;
+    justify-content:space-between;
+}
+
+.cart-items{
+    max-height:250px;
+    overflow:auto;
+    padding:15px;
+}
+
+.cart-item{
+    display:flex;
+    justify-content:space-between;
+    padding:10px 0;
+    border-bottom:1px solid #eee;
+}
+
+.cart-footer{
+    padding:15px;
+}
+
+.total{
+    font-size:20px;
+    font-weight:bold;
+    margin-bottom:12px;
+}
+
+.checkout{
+    width:100%;
+    border:none;
+    background:#25D366;
+    color:white;
+    padding:13px;
+    border-radius:10px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* TIMINGS */
+
+.info{
+    max-width:1100px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:30px;
+}
+
+.info-card{
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 7px 25px rgba(0,0,0,.07);
+}
+
+.info-card h3{
+    margin-bottom:18px;
+    color:#ff4f81;
+}
+
+.timing{
+    display:flex;
+    justify-content:space-between;
+    padding:10px 0;
+    border-bottom:1px solid #eee;
+}
+
+.map{
+    width:100%;
+    height:300px;
+    border:0;
+    border-radius:15px;
+}
+
+/* REVIEWS */
+
+.reviews{
+    background:#fff0f5;
+}
+
+.review-grid{
+    max-width:1100px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:25px;
+}
+
+.review{
+    background:white;
+    padding:25px;
+    border-radius:18px;
+    box-shadow:0 6px 20px rgba(0,0,0,.06);
+}
+
+.stars{
+    color:#ffb000;
+    font-size:20px;
+    margin-bottom:10px;
+}
+
+/* FOOTER */
+
+footer{
+    background:#321f27;
+    color:white;
+    text-align:center;
+    padding:35px 20px;
+}
+
+footer h2{
+    color:#ff7099;
+}
+
+footer p{
+    color:#d9c7cd;
+    margin-top:8px;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+    .nav-links{
+        display:none;
+    }
+
+    .hero h1{
+        font-size:45px;
+    }
+
+    .menu-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .gallery{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .features{
+        grid-template-columns:1fr;
+    }
+
+    .review-grid{
+        grid-template-columns:1fr;
+    }
+
+    .info{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:600px){
+
+    .navbar{
+        padding:14px 16px;
+    }
+
+    .logo{
+        font-size:21px;
+    }
+
+    .order-btn{
+        padding:9px 14px;
+        font-size:13px;
+    }
+
+    .hero{
+        min-height:650px;
+        background:
+        linear-gradient(rgba(255,248,245,.88),rgba(255,248,245,.88)),
+        url("https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=1000&q=80");
+        background-size:cover;
+    }
+
+    .hero-content{
+        text-align:center;
+    }
+
+    .hero h1{
+        font-size:39px;
+    }
+
+    .hero p{
+        font-size:16px;
+    }
+
+    .hero-buttons{
+        justify-content:center;
+    }
+
+    section{
+        padding:55px 16px;
+    }
+
+    .section-title h2{
+        font-size:30px;
+    }
+
+    .menu-grid{
+        grid-template-columns:1fr;
+    }
+
+    .gallery{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .gallery img{
+        height:170px;
+    }
+
+    .order-box h2{
+        font-size:32px;
+    }
+
+    .cart{
+        right:10px;
+        bottom:10px;
+        max-width:calc(100% - 20px);
+    }
+}
+
+/* DARK PINK-VIOLET THEME */
+
+:root{
+    color-scheme:dark;
+    --page:#100b18;
+    --surface:#191222;
+    --panel:#21172c;
+    --panel-raised:#291d37;
+    --text:#f7effb;
+    --muted:#c4b4ce;
+    --line:#493653;
+    --pink:#ff65b3;
+    --violet:#bd8bff;
+}
+
+body{
+    background:
+        radial-gradient(ellipse at 12% 8%,rgba(137,66,184,.18),transparent 38%),
+        radial-gradient(ellipse at 88% 32%,rgba(206,66,155,.12),transparent 34%),
+        var(--page);
+    background-attachment:fixed;
+    color:var(--text);
+}
+
+header{
+    background:rgba(22,15,31,.96);
+    box-shadow:0 4px 24px rgba(4,1,9,.45);
+}
+
+.logo,
+.nav-links a:hover,
+.hero h1 span,
+.section-title small,
+.info-card h3{
+    color:var(--pink);
+}
+
+.logo span{
+    color:var(--violet);
+}
+
+.nav-links a{
+    color:#e4d8eb;
+}
+
+.order-btn,
+.primary-btn,
+.add-btn,
+.cart-header{
+    background:linear-gradient(120deg,#e94f9f,#8d5be8);
+}
+
+.hero{
+    background:
+        linear-gradient(90deg,rgba(16,11,24,.97) 28%,rgba(16,11,24,.58) 72%,rgba(16,11,24,.24)),
+        url("https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=1600&q=80");
+    background-size:cover;
+    background-position:center;
+}
+
+.hero h1,
+.section-title h2,
+.feature h3,
+.card-content h3,
+.info-card,
+.review,
+.total{
+    color:var(--text);
+}
+
+.hero p,
+.card-content p,
+.feature p,
+.info-card p,
+.review p{
+    color:var(--muted);
+}
+
+.badge{
+    background:#35213f;
+    color:#ff9bcb;
+}
+
+.secondary-btn{
+    border-color:var(--violet);
+    color:#e8d4ff;
+    background:rgba(27,18,37,.78);
+}
+
+.secondary-btn:hover,
+.add-btn:hover{
+    filter:brightness(1.12);
+}
+
+.feature,
+.card,
+.info-card,
+.review,
+.cart{
+    background:var(--panel);
+    box-shadow:0 10px 32px rgba(3,1,8,.34);
+}
+
+.menu,
+.custom-order,
+.reviews{
+    background:var(--surface);
+}
+
+.card-content h3{
+    color:#f3e8fa;
+}
+
+.price,
+.footer h2{
+    color:var(--pink);
+}
+
+.custom-order-form{
+    color:var(--text);
+    background:
+        linear-gradient(var(--panel),var(--panel)) padding-box,
+        conic-gradient(from var(--order-border-angle),#ff65b3,#bd8bff,#e26bd0,#8e67e8,#ff65b3) border-box;
+    box-shadow:0 12px 38px rgba(5,1,12,.42);
+}
+
+.form-field label,
+.form-extras legend{
+    color:#f1e5f7;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea{
+    border-color:var(--line);
+    background:#150f1d;
+    color:var(--text);
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder{
+    color:#a999b5;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus{
+    outline-color:var(--violet);
+}
+
+.form-field input[type="date"]{
+    color-scheme:dark;
+}
+
+option{
+    background:#21172c;
+    color:var(--text);
+}
+
+.extras-list label,
+.reference-image-note{
+    color:var(--muted);
+}
+
+.extras-list input{
+    accent-color:var(--pink);
+}
+
+.custom-order-submit{
+    background:linear-gradient(120deg,#e94f9f,#8d5be8);
+}
+
+.custom-order-submit:hover{
+    filter:brightness(1.12);
+}
+
+.order-section{
+    background:linear-gradient(125deg,#271631,#52265f 55%,#753270);
+}
+
+.whatsapp,
+.checkout{
+    background:#20bd69;
+}
+
+.cart-header{
+    border-radius:20px 20px 0 0;
+}
+
+.cart-item{
+    border-color:var(--line);
+    color:var(--text);
+}
+
+.cart-item button{
+    background:#382543 !important;
+    color:#ff9acb !important;
+}
+
+.timing{
+    border-color:var(--line);
+    color:#eadff0;
+}
+
+.stars{
+    color:#ffc46b;
+}
+
+footer{
+    background:#0b0711;
+}
+
+footer h2{
+    color:var(--pink);
+}
+
+footer p{
+    color:#bbaac5;
+}
+
+@media(max-width:600px){
+    .hero{
+        background:
+            linear-gradient(rgba(16,11,24,.78),rgba(16,11,24,.88)),
+            url("https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=1000&q=80");
+        background-size:cover;
+        background-position:center;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<header>
+<nav class="navbar">
+
+<div class="logo">
+🎂 Bite <span>Bakery</span>
+</div>
+
+<ul class="nav-links">
+<li><a href="#home">Home</a></li>
+<li><a href="#menu">Menu</a></li>
+<li><a href="#gallery">Gallery</a></li>
+<li><a href="#custom-order">Custom Cake</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+
+<a href="#custom-order" class="order-btn">
+Order Cake
+</a>
+
+</nav>
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+<div class="hero-content">
+
+<span class="badge">🎂 Freshly Baked Every Day</span>
+
+<h1>
+Made With Love,
+<br>
+<span>Served With Joy!</span>
+</h1>
+
+<p>
+Delicious custom cakes, pastries and sweet treats
+made fresh for your special moments.
+</p>
+
+<div class="hero-buttons">
+
+<a href="#menu" class="primary-btn">
+🍰 Explore Menu
+</a>
+
+<a href="https://wa.me/918523919810"
+class="secondary-btn">
+💬 WhatsApp Us
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- FEATURES -->
+
+<section>
+
+<div class="section-title">
+<small>WHY CHOOSE US</small>
+<h2>Sweetness You Can Trust ❤️</h2>
+</div>
+
+<div class="features">
+
+<div class="feature">
+<div class="feature-icon">🎂</div>
+<h3>Custom Cakes</h3>
+<p>Beautiful cakes designed specially for your celebration.</p>
+</div>
+
+<div class="feature">
+<div class="feature-icon">🥛</div>
+<h3>Fresh Ingredients</h3>
+<p>Premium ingredients and freshly baked products.</p>
+</div>
+
+<div class="feature">
+<div class="feature-icon">🚚</div>
+<h3>Easy Ordering</h3>
+<p>Choose your favourites and order directly through WhatsApp.</p>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- MENU -->
+
+<section class="menu" id="menu">
+
+<div class="section-title">
+<small>OUR MENU</small>
+<h2>Pick Your Favourite 🍰</h2>
+</div>
+
+<div class="menu-grid">
+
+<div class="card">
+<img src="https://plus.unsplash.com/premium_photo-1675283825474-390ea83c0703?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+
+<div class="card-content">
+<h3>Chocolate Truffle</h3>
+<p>Rich chocolate cake with creamy ganache.</p>
+<div class="price">₹650</div>
+<button class="add-btn"
+onclick="addToCart('Chocolate Truffle',650)">
+Add to Order
+</button>
+</div>
+</div>
+
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1579356094148-9b74dab60f5b?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+
+<div class="card-content">
+<h3>Strawberry Cake</h3>
+<p>Fresh strawberry cream cake.</p>
+<div class="price">₹700</div>
+<button class="add-btn"
+onclick="addToCart('Strawberry Cake',700)">
+Add to Order
+</button>
+</div>
+</div>
+
+
+<div class="card">
+<img src="https://plus.unsplash.com/premium_photo-1683121823310-121e5fe5a06d?q=80&w=822&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+
+<div class="card-content">
+<h3>Donuts Box</h3>
+<p>Six delicious assorted donuts.</p>
+<div class="price">₹300</div>
+<button class="add-btn"
+onclick="addToCart('Donuts Box',300)">
+Add to Order
+</button>
+</div>
+</div>
+
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1602630209855-dceac223adfe?q=80&w=1173&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+
+<div class="card-content">
+<h3>Red Velvet</h3>
+<p>Soft red velvet with cream cheese frosting.</p>
+<div class="price">₹750</div>
+<button class="add-btn"
+onclick="addToCart('Red Velvet Cake',750)">
+Add to Order
+</button>
+</div>
+</div>
+
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?auto=format&fit=crop&w=700&q=80">
+
+<div class="card-content">
+<h3>Black Forest</h3>
+<p>Classic chocolate, cherry and cream cake.</p>
+<div class="price">₹600</div>
+<button class="add-btn"
+onclick="addToCart('Black Forest Cake',600)">
+Add to Order
+</button>
+</div>
+</div>
+
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1571115177098-24ec42ed204d?auto=format&fit=crop&w=700&q=80">
+
+<div class="card-content">
+<h3>Birthday Special</h3>
+<p>Custom decorated celebration cake.</p>
+<div class="price">₹950</div>
+<button class="add-btn"
+onclick="addToCart('Birthday Special Cake',950)">
+Add to Order
+</button>
+</div>
+</div>
+
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1622467827417-bbe2237067a9?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+
+<div class="card-content">
+<h3>Cookies Box</h3>
+<p>Freshly baked assorted cookies.</p>
+<div class="price">₹250</div>
+<button class="add-btn"
+onclick="addToCart('Cookies Box',250)">
+Add to Order
+</button>
+</div>
+</div>
+
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1599785209707-a456fc1337bb?auto=format&fit=crop&w=700&q=80">
+
+<div class="card-content">
+<h3>Cupcake</h3>
+<p>Box of six colourful cupcakes.</p>
+<div class="price">₹350</div>
+<button class="add-btn"
+onclick="addToCart('Cupcake Box',350)">
+Add to Order
+</button>
+</div>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- GALLERY -->
+
+<section id="gallery">
+
+<div class="section-title">
+<small>OUR CREATIONS</small>
+<h2>A Little Taste of Happiness 📸</h2>
+</div>
+
+<div class="gallery">
+
+<img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=700&q=80">
+
+<img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=700&q=80">
+
+<img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=700&q=80">
+
+<img src="https://images.unsplash.com/photo-1557925923-cd4648e211a0?auto=format&fit=crop&w=700&q=80">
+
+<img src="https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?auto=format&fit=crop&w=700&q=80">
+
+<img src="https://images.unsplash.com/photo-1571115177098-24ec42ed204d?auto=format&fit=crop&w=700&q=80">
+
+<img src="https://images.unsplash.com/photo-1519915028121-7d3463d20b13?auto=format&fit=crop&w=700&q=80">
+
+<img src="https://images.unsplash.com/photo-1599785209707-a456fc1337bb?auto=format&fit=crop&w=700&q=80">
+
+</div>
+
+</section>
+
+
+<!-- CUSTOM CAKE ORDER -->
+
+<section class="custom-order" id="custom-order">
+
+<div class="section-title">
+<small>MADE JUST FOR YOU</small>
+<h2>Design Your Celebration Cake 🎂</h2>
+</div>
+
+<form class="custom-order-form" onsubmit="sendCustomOrder(event)">
+<div class="form-grid">
+
+<div class="form-field">
+<label for="customer-name">Your name</label>
+<input id="customer-name" name="name" type="text" autocomplete="name" required>
+</div>
+
+<div class="form-field">
+<label for="customer-phone">Phone number</label>
+<input id="customer-phone" name="phone" type="tel" autocomplete="tel" required>
+</div>
+
+<div class="form-field">
+<label for="customer-email">Email address (optional)</label>
+<input id="customer-email" name="email" type="email" autocomplete="email">
+</div>
+
+<div class="form-field">
+<label for="event-date">Celebration date</label>
+<input id="event-date" name="eventDate" type="date" required>
+</div>
+
+<div class="form-field">
+<label for="cake-flavor">Cake flavor</label>
+<select id="cake-flavor" name="flavor" required>
+<option value="" disabled selected>Select a flavor</option>
+<option>Chocolate</option>
+<option>Vanilla</option>
+<option>Red velvet</option>
+<option>Strawberry</option>
+<option>Black forest</option>
+<option>Other / please advise</option>
+</select>
+</div>
+
+<div class="form-field is-hidden" id="other-flavor-field">
+<label for="other-flavor">Enter your preferred flavor</label>
+<input id="other-flavor" name="otherFlavor" type="text" placeholder="e.g. mango, pineapple, coffee">
+</div>
+
+<div class="form-field">
+<label for="cake-weight">Cake weight</label>
+<select id="cake-weight" name="weight" required>
+<option value="" disabled selected>Select a weight</option>
+<option>0.5 kg</option>
+<option>1 kg</option>
+<option>1.5 kg</option>
+<option>2 kg</option>
+<option>Custom weight</option>
+</select>
+</div>
+
+<div class="form-field is-hidden" id="custom-weight-field">
+<label for="custom-weight">Enter the weight you need</label>
+<input id="custom-weight" name="customWeight" type="text" placeholder="e.g. 2.5 kg">
+</div>
+
+<div class="form-field">
+<label for="cake-color">Main cake color</label>
+<input id="cake-color" name="color" type="text" placeholder="e.g. blush pink, ivory, sage green">
+</div>
+
+<div class="form-field">
+<label for="cake-message">Message on the cake</label>
+<input id="cake-message" name="cakeMessage" type="text" maxlength="60" placeholder="e.g. Happy Birthday, Maya!">
+</div>
+
+<fieldset class="form-extras">
+<legend>Add celebration extras</legend>
+<div class="extras-list">
+<label><input type="checkbox" name="extras" value="Birthday candles"> Birthday candles</label>
+<label><input type="checkbox" name="extras" value="Cake topper"> Cake topper</label>
+<label><input type="checkbox" name="extras" value="Balloons"> Balloons</label>
+<label><input type="checkbox" name="extras" value="Party hats"> Party hats</label>
+<label><input type="checkbox" name="extras" value="Celebration decoration kit"> Celebration decoration kit</label>
+</div>
+</fieldset>
+
+<div class="form-field full-width">
+<label for="cake-details">Cake design and other details</label>
+<textarea id="cake-details" name="details" placeholder="Describe the design, theme, filling, or anything else we should know."></textarea>
+</div>
+
+<button class="custom-order-submit" type="submit">Send custom cake request on WhatsApp</button>
+
+</div>
+</form>
+
+</section>
+
+
+<!-- ORDER CTA -->
+
+<section class="order-section">
+
+<div class="order-box">
+
+<h2>Ready to Make Your Day Sweeter? 🎉</h2>
+
+<p>
+Tell us what you need and we'll prepare something delicious for you.
+</p>
+
+<a href="https://wa.me/918523919810"
+class="whatsapp">
+💬 Order Directly on WhatsApp
+</a>
+
+</div>
+
+</section>
+
+
+<!-- CONTACT -->
+
+<section id="contact">
+
+<div class="section-title">
+<small>VISIT US</small>
+<h2>Come Say Hello 👋</h2>
+</div>
+
+<div class="info">
+
+<div class="info-card">
+
+<h3>📍 Store Information</h3>
+
+<p>
+<strong>Bite Bakery</strong>
+</p>
+
+<br>
+
+<p>
+📍 123 Main Road,<br>
+Dindigul, Tamil Nadu - 624001
+</p>
+
+<br>
+
+<p>
+📞 +91 8523919810
+</p>
+
+<br>
+
+<p>
+📧 hello@sweetbliss.com
+</p>
+
+</div>
+
+
+<div class="info-card">
+
+<h3>🕒 Opening Hours</h3>
+
+<div class="timing">
+<span>Monday</span>
+<span>9:00 AM – 9:00 PM</span>
+</div>
+
+<div class="timing">
+<span>Tuesday</span>
+<span>9:00 AM – 9:00 PM</span>
+</div>
+
+<div class="timing">
+<span>Wednesday</span>
+<span>9:00 AM – 9:00 PM</span>
+</div>
+
+<div class="timing">
+<span>Thursday</span>
+<span>9:00 AM – 9:00 PM</span>
+</div>
+
+<div class="timing">
+<span>Friday</span>
+<span>9:00 AM – 9:30 PM</span>
+</div>
+
+<div class="timing">
+<span>Saturday</span>
+<span>9:00 AM – 10:00 PM</span>
+</div>
+
+<div class="timing">
+<span>Sunday</span>
+<span>10:00 AM – 9:00 PM</span>
+</div>
+
+</div>
+
+</div>
+
+<br><br>
+
+<div style="max-width:1100px;margin:auto;">
+
+<iframe
+class="map"
+src="https://www.google.com/maps?q=Dindigul,Tamil%20Nadu&output=embed">
+</iframe>
+
+</div>
+
+</section>
+
+
+<!-- REVIEWS -->
+
+<section class="reviews">
+
+<div class="section-title">
+<small>HAPPY CUSTOMERS</small>
+<h2>What People Say ❤️</h2>
+</div>
+
+<div class="review-grid">
+
+<div class="review">
+
+<div class="stars">★★★★★</div>
+
+<p>
+"The chocolate cake was absolutely delicious.
+Everyone loved it!"
+</p>
+
+<br>
+
+<strong>— Priya</strong>
+
+</div>
+
+
+<div class="review">
+
+<div class="stars">★★★★★</div>
+
+<p>
+"Beautiful decoration and the cake looked
+exactly like the reference picture."
+</p>
+
+<br>
+
+<strong>— Arun</strong>
+
+</div>
+
+
+<div class="review">
+
+<div class="stars">★★★★★</div>
+
+<p>
+"Very fresh and tasty. Ordering through
+WhatsApp was super easy."
+</p>
+
+<br>
+
+<strong>— Divya</strong>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- CART -->
+
+<div class="cart" id="cart">
+
+<div class="cart-header">
+
+<strong>🛒 Your Order</strong>
+
+<button onclick="closeCart()"
+style="background:none;border:none;color:white;font-size:20px;cursor:pointer;">
+×
+</button>
+
+</div>
+
+<div class="cart-items" id="cartItems"></div>
+
+<div class="cart-footer">
+
+<div class="total">
+Total: ₹<span id="total">0</span>
+</div>
+
+<button class="checkout"
+onclick="sendWhatsApp()">
+💬 Send Order on WhatsApp
+</button>
+
+</div>
+
+</div>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+<h2>🍰 Bite Bakery</h2>
+
+<p>
+Fresh cakes • Sweet memories • Happy moments
+</p>
+
+<p>
+© 2026 Bite Bakery. All Rights Reserved.
+</p>
+
+</footer>
+
+
+<script>
+
+let cart = [];
+let total = 0;
+
+
+/* ADD PRODUCT */
+
+function addToCart(name,price){
+
+cart.push({
+name:name,
+price:price
+});
+
+total += price;
+
+updateCart();
+
+document.getElementById("cart").classList.add("active");
+
+}
+
+
+/* UPDATE CART */
+
+function updateCart(){
+
+const container =
+document.getElementById("cartItems");
+
+container.innerHTML="";
+
+cart.forEach((item,index)=>{
+
+const div =
+document.createElement("div");
+
+div.className="cart-item";
+
+div.innerHTML=`
+
+<span>${item.name}</span>
+
+<span>
+₹${item.price}
+<button
+onclick="removeItem(${index})"
+style="
+margin-left:6px;
+border:none;
+background:#ffe0e8;
+color:#ff3366;
+border-radius:5px;
+cursor:pointer;
+">
+×
+</button>
+</span>
+
+`;
+
+container.appendChild(div);
+
+});
+
+document.getElementById("total").innerText=total;
+
+}
+
+
+/* REMOVE */
+
+function removeItem(index){
+
+total -= cart[index].price;
+
+cart.splice(index,1);
+
+updateCart();
+
+if(cart.length===0){
+
+document
+.getElementById("cart")
+.classList.remove("active");
+
+}
+
+}
+
+
+/* CLOSE CART */
+
+function closeCart(){
+
+document
+.getElementById("cart")
+.classList.remove("active");
+
+}
+
+
+/* WHATSAPP */
+
+function sendWhatsApp(){
+
+if(cart.length===0){
+
+alert("Please add something to your order.");
+
+return;
+
+}
+
+let message =
+"🍰 *New Order - Bite Bakery*%0A%0A";
+
+cart.forEach((item,index)=>{
+
+message +=
+`${index+1}. ${item.name} - ₹${item.price}%0A`;
+
+});
+
+message +=
+`%0A💰 *Total: ₹${total}*`;
+
+message +=
+"%0A%0APlease confirm my order. 😊";
+
+
+/*
+CHANGE THIS NUMBER
+TO YOUR SHOP'S WHATSAPP NUMBER.
+FORMAT:
+91 + 10 DIGIT NUMBER
+*/
+
+const phone="918523919810";
+
+window.open(
+"https://wa.me/"+phone+"?text="+message,
+"_blank"
+);
+
+}
+
+function sendCustomOrder(event){
+
+event.preventDefault();
+
+const form = event.currentTarget;
+const formData = new FormData(form);
+const extras = formData.getAll("extras");
+const color = formData.get("color");
+const flavor = formData.get("flavor") === "Other / please advise"
+    ? formData.get("otherFlavor")
+    : formData.get("flavor");
+const weight = formData.get("weight") === "Custom weight"
+    ? formData.get("customWeight")
+    : formData.get("weight");
+const message = [
+"🍰 *Custom Cake Request - Bite Bakery*",
+"",
+`*Name:* ${formData.get("name")}`,
+`*Phone:* ${formData.get("phone")}`,
+`*Email:* ${formData.get("email") || "Not provided"}`,
+`*Celebration date:* ${formData.get("eventDate")}`,
+`*Flavor:* ${flavor}`,
+`*Weight:* ${weight}`,
+`*Cake color:* ${color}`,
+`*Cake message:* ${formData.get("cakeMessage") || "None"}`,
+`*Celebration extras:* ${extras.length ? extras.join(", ") : "None"}`,
+`*Design and other details:* ${formData.get("details") || "None"}`
+].join("\n");
+
+const phone = "918523919810";
+window.open("https://wa.me/" + phone + "?text=" + encodeURIComponent(message), "_blank");
+
+}
+
+const cakeFlavorSelect = document.getElementById("cake-flavor");
+const cakeWeightSelect = document.getElementById("cake-weight");
+const otherFlavorField = document.getElementById("other-flavor-field");
+const otherFlavorInput = document.getElementById("other-flavor");
+const customWeightField = document.getElementById("custom-weight-field");
+const customWeightInput = document.getElementById("custom-weight");
+
+cakeFlavorSelect.addEventListener("change", () => {
+    const needsOtherFlavor = cakeFlavorSelect.value === "Other / please advise";
+    otherFlavorField.classList.toggle("is-hidden", !needsOtherFlavor);
+    otherFlavorInput.required = needsOtherFlavor;
+    if (!needsOtherFlavor) otherFlavorInput.value = "";
+});
+
+cakeWeightSelect.addEventListener("change", () => {
+    const needsCustomWeight = cakeWeightSelect.value === "Custom weight";
+    customWeightField.classList.toggle("is-hidden", !needsCustomWeight);
+    customWeightInput.required = needsCustomWeight;
+    if (!needsCustomWeight) customWeightInput.value = "";
+});
+
+</script>
+
+</body>
+</html>
