@@ -453,6 +453,8 @@ section{
     bottom:20px;
     width:350px;
     max-width:calc(100% - 40px);
+    max-height:calc(100vh - 40px);
+    overflow:auto;
     background:white;
     border-radius:20px;
     box-shadow:0 10px 40px rgba(0,0,0,.2);
@@ -488,6 +490,37 @@ section{
 
 .cart-footer{
     padding:15px;
+}
+
+.cart-customer-fields{
+    display:grid;
+    gap:10px;
+    margin-bottom:14px;
+}
+
+.cart-customer-fields label{
+    display:grid;
+    gap:5px;
+    color:#4b3038;
+    font-size:14px;
+    font-weight:700;
+}
+
+.cart-customer-fields input,
+.cart-customer-fields textarea{
+    width:100%;
+    min-height:42px;
+    padding:10px 12px;
+    border:1px solid #e6d5db;
+    border-radius:8px;
+    background:#fffdfd;
+    color:#3d2630;
+    font:inherit;
+}
+
+.cart-customer-fields textarea{
+    min-height:72px;
+    resize:vertical;
 }
 
 .total{
@@ -890,6 +923,22 @@ option{
     color:#ff9acb !important;
 }
 
+.cart-customer-fields label{
+    color:var(--text);
+}
+
+.cart-customer-fields input,
+.cart-customer-fields textarea{
+    border-color:var(--line);
+    background:#150f1d;
+    color:var(--text);
+}
+
+.cart-customer-fields input::placeholder,
+.cart-customer-fields textarea::placeholder{
+    color:#a999b5;
+}
+
 .timing{
     border-color:var(--line);
     color:#eadff0;
@@ -943,7 +992,7 @@ footer p{
 </ul>
 
 <a href="#custom-order" class="order-btn">
-Order Cake
+Custom Cake Order
 </a>
 
 </nav>
@@ -1281,6 +1330,11 @@ Add to Order
 <textarea id="cake-details" name="details" placeholder="Describe the design, theme, filling, or anything else we should know."></textarea>
 </div>
 
+<div class="form-field full-width">
+<label for="custom-delivery-address">Delivery address</label>
+<textarea id="custom-delivery-address" name="address" autocomplete="street-address" placeholder="Enter the complete delivery address." required></textarea>
+</div>
+
 <button class="custom-order-submit" type="submit">Send custom cake request on WhatsApp</button>
 
 </div>
@@ -1491,14 +1545,34 @@ style="background:none;border:none;color:white;font-size:20px;cursor:pointer;">
 
 <div class="cart-footer">
 
+<form id="cart-checkout-form" onsubmit="sendWhatsApp(event)">
+
+<div class="cart-customer-fields">
+<label for="order-customer-name">
+Your name
+<input id="order-customer-name" name="name" type="text" autocomplete="name" required>
+</label>
+
+<label for="order-customer-phone">
+Phone number
+<input id="order-customer-phone" name="phone" type="tel" autocomplete="tel" required>
+</label>
+
+<label for="delivery-address">
+Delivery address
+<textarea id="delivery-address" name="address" autocomplete="street-address" required></textarea>
+</label>
+</div>
+
 <div class="total">
 Total: ₹<span id="total">0</span>
 </div>
 
-<button class="checkout"
-onclick="sendWhatsApp()">
+<button class="checkout" type="submit">
 💬 Send Order on WhatsApp
 </button>
+
+</form>
 
 </div>
 
@@ -1627,7 +1701,9 @@ document
 
 /* WHATSAPP */
 
-function sendWhatsApp(){
+function sendWhatsApp(event){
+
+event.preventDefault();
 
 if(cart.length===0){
 
@@ -1637,13 +1713,18 @@ return;
 
 }
 
+const customerDetails = new FormData(event.currentTarget);
+
 let message =
-"🍰 *New Order - Bite Bakery*%0A%0A";
+"🍰 *New Order - Bite Bakery*\n\n"+
+`*Name:* ${customerDetails.get("name")}\n`+
+`*Phone:* ${customerDetails.get("phone")}\n`+
+`*Delivery address:* ${customerDetails.get("address")}\n\n`;
 
 cart.forEach((item,index)=>{
 
 message +=
-`${index+1}. ${item.name} - ₹${item.price}%0A`;
+`${index+1}. ${item.name} - ₹${item.price}\n`;
 
 });
 
@@ -1651,7 +1732,7 @@ message +=
 `%0A💰 *Total: ₹${total}*`;
 
 message +=
-"%0A%0APlease confirm my order. 😊";
+"\nPlease confirm my order. 😊";
 
 
 /*
@@ -1664,7 +1745,7 @@ FORMAT:
 const phone="918523919810";
 
 window.open(
-"https://wa.me/"+phone+"?text="+message,
+"https://wa.me/"+phone+"?text="+encodeURIComponent(message),
 "_blank"
 );
 
@@ -1691,6 +1772,7 @@ const message = [
 `*Phone:* ${formData.get("phone")}`,
 `*Email:* ${formData.get("email") || "Not provided"}`,
 `*Celebration date:* ${formData.get("eventDate")}`,
+`*Delivery address:* ${formData.get("address")}`,
 `*Flavor:* ${flavor}`,
 `*Weight:* ${weight}`,
 `*Cake color:* ${color}`,
