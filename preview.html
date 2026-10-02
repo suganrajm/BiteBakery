@@ -449,11 +449,11 @@ section{
 
 .cart{
     position:fixed;
-    right:20px;
-    bottom:20px;
+    left:20px;
+    bottom:90px;
     width:350px;
     max-width:calc(100% - 40px);
-    max-height:calc(100vh - 40px);
+    max-height:calc(100vh - 110px);
     overflow:auto;
     background:white;
     border-radius:20px;
@@ -464,6 +464,65 @@ section{
 
 .cart.active{
     display:block;
+}
+
+.cart-launcher{
+    position:fixed;
+    left:20px;
+    bottom:20px;
+    z-index:2001;
+    width:58px;
+    height:58px;
+    display:grid;
+    place-items:center;
+    border:0;
+    border-radius:50%;
+    background:#ff4f81;
+    color:white;
+    box-shadow:0 6px 20px rgba(0,0,0,.3);
+    font-size:25px;
+    cursor:pointer;
+}
+
+.cart-count{
+    position:absolute;
+    top:-4px;
+    right:-4px;
+    min-width:23px;
+    height:23px;
+    display:grid;
+    place-items:center;
+    padding:0 5px;
+    border:2px solid white;
+    border-radius:999px;
+    background:#ff9f1c;
+    color:#321f27;
+    font-size:12px;
+    font-weight:800;
+}
+
+.cart-close{
+    width:32px;
+    height:32px;
+    border:0;
+    border-radius:50%;
+    background:rgba(0,0,0,.16);
+    color:white;
+    font-size:22px;
+    line-height:1;
+    cursor:pointer;
+}
+
+.cart-empty{
+    padding:18px 15px;
+    color:#806870;
+    text-align:center;
+}
+
+.cart-items[hidden],
+.cart-empty[hidden],
+.cart-checkout-form[hidden]{
+    display:none;
 }
 
 .cart-header{
@@ -538,6 +597,21 @@ section{
     border-radius:10px;
     font-weight:bold;
     cursor:pointer;
+}
+
+.cart-remove{
+    margin-left:8px;
+    border:0;
+    background:transparent;
+    color:#ff9acb;
+    font-size:18px;
+    cursor:pointer;
+}
+
+.form-status{
+    grid-column:1 / -1;
+    min-height:1.4em;
+    color:var(--muted);
 }
 
 /* TIMINGS */
@@ -718,9 +792,16 @@ footer p{
     }
 
     .cart{
-        right:10px;
-        bottom:10px;
-        max-width:calc(100% - 20px);
+        left:12px;
+        right:auto;
+        bottom:84px;
+        max-width:calc(100% - 24px);
+        max-height:calc(100dvh - 96px);
+    }
+
+    .cart-launcher{
+        left:12px;
+        bottom:14px;
     }
 }
 
@@ -772,7 +853,8 @@ header{
 .order-btn,
 .primary-btn,
 .add-btn,
-.cart-header{
+.cart-header,
+.cart-launcher{
     background:linear-gradient(120deg,#e94f9f,#8d5be8);
 }
 
@@ -921,6 +1003,10 @@ option{
 .cart-item button{
     background:#382543 !important;
     color:#ff9acb !important;
+}
+
+.cart-empty{
+    color:var(--muted);
 }
 
 .cart-customer-fields label{
@@ -1250,21 +1336,6 @@ Add to Order
 <div class="form-grid">
 
 <div class="form-field">
-<label for="customer-name">Your name</label>
-<input id="customer-name" name="name" type="text" autocomplete="name" required>
-</div>
-
-<div class="form-field">
-<label for="customer-phone">Phone number</label>
-<input id="customer-phone" name="phone" type="tel" autocomplete="tel" required>
-</div>
-
-<div class="form-field">
-<label for="customer-email">Email address (optional)</label>
-<input id="customer-email" name="email" type="email" autocomplete="email">
-</div>
-
-<div class="form-field">
 <label for="event-date">Celebration date</label>
 <input id="event-date" name="eventDate" type="date" required>
 </div>
@@ -1330,12 +1401,8 @@ Add to Order
 <textarea id="cake-details" name="details" placeholder="Describe the design, theme, filling, or anything else we should know."></textarea>
 </div>
 
-<div class="form-field full-width">
-<label for="custom-delivery-address">Delivery address</label>
-<textarea id="custom-delivery-address" name="address" autocomplete="street-address" placeholder="Enter the complete delivery address." required></textarea>
-</div>
-
-<button class="custom-order-submit" type="submit">Send custom cake request on WhatsApp</button>
+<button class="custom-order-submit" type="submit">Add custom cake to cart</button>
+<p class="form-status" id="custom-order-status" role="status" aria-live="polite"></p>
 
 </div>
 </form>
@@ -1528,24 +1595,29 @@ WhatsApp was super easy."
 
 <!-- CART -->
 
+<button class="cart-launcher" id="cartLauncher" type="button" onclick="toggleCart()" aria-label="Open cart, 0 items" aria-expanded="false" aria-controls="cart">
+🛒
+<span class="cart-count" id="cartCount" hidden>0</span>
+</button>
+
 <div class="cart" id="cart">
 
 <div class="cart-header">
 
 <strong>🛒 Your Order</strong>
 
-<button onclick="closeCart()"
-style="background:none;border:none;color:white;font-size:20px;cursor:pointer;">
+<button class="cart-close" type="button" onclick="closeCart()" aria-label="Close cart">
 ×
 </button>
 
 </div>
 
-<div class="cart-items" id="cartItems"></div>
+<div class="cart-empty" id="cartEmpty">Your cart is empty.</div>
+<div class="cart-items" id="cartItems" hidden></div>
 
 <div class="cart-footer">
 
-<form id="cart-checkout-form" onsubmit="sendWhatsApp(event)">
+<form id="cart-checkout-form" class="cart-checkout-form" onsubmit="sendWhatsApp(event)" hidden>
 
 <div class="cart-customer-fields">
 <label for="order-customer-name">
@@ -1604,18 +1676,17 @@ let total = 0;
 
 /* ADD PRODUCT */
 
-function addToCart(name,price){
+function addToCart(name,price,details=null){
 
 cart.push({
 name:name,
-price:price
+price:price,
+details:details
 });
 
 total += price;
 
 updateCart();
-
-document.getElementById("cart").classList.add("active");
 
 }
 
@@ -1629,6 +1700,18 @@ document.getElementById("cartItems");
 
 container.innerHTML="";
 
+const empty = cart.length === 0;
+const cartElement = document.getElementById("cart");
+const launcher = document.getElementById("cartLauncher");
+const count = document.getElementById("cartCount");
+document.getElementById("cartEmpty").hidden = !empty;
+container.hidden = empty;
+document.getElementById("cart-checkout-form").hidden = empty;
+count.hidden = empty;
+count.textContent = cart.length;
+launcher.setAttribute("aria-label", `Open cart, ${cart.length} ${cart.length === 1 ? "item" : "items"}`);
+launcher.setAttribute("aria-expanded", cartElement.classList.contains("active"));
+
 cart.forEach((item,index)=>{
 
 const div =
@@ -1636,27 +1719,22 @@ document.createElement("div");
 
 div.className="cart-item";
 
-div.innerHTML=`
+const name = document.createElement("span");
+name.textContent = item.name;
 
-<span>${item.name}</span>
+const actions = document.createElement("span");
+const price = document.createElement("span");
+price.textContent = item.details ? "Quote" : `₹${item.price}`;
 
-<span>
-₹${item.price}
-<button
-onclick="removeItem(${index})"
-style="
-margin-left:6px;
-border:none;
-background:#ffe0e8;
-color:#ff3366;
-border-radius:5px;
-cursor:pointer;
-">
-×
-</button>
-</span>
+const removeButton = document.createElement("button");
+removeButton.className = "cart-remove";
+removeButton.type = "button";
+removeButton.setAttribute("aria-label", `Remove ${item.name}`);
+removeButton.textContent = "×";
+removeButton.addEventListener("click", () => removeItem(index));
 
-`;
+actions.append(price, removeButton);
+div.append(name, actions);
 
 container.appendChild(div);
 
@@ -1671,19 +1749,24 @@ document.getElementById("total").innerText=total;
 
 function removeItem(index){
 
+if (!cart[index]) return;
+
 total -= cart[index].price;
 
 cart.splice(index,1);
 
 updateCart();
 
-if(cart.length===0){
-
-document
-.getElementById("cart")
-.classList.remove("active");
-
 }
+
+function toggleCart(){
+
+const cartElement = document.getElementById("cart");
+cartElement.classList.toggle("active");
+document.getElementById("cartLauncher").setAttribute(
+"aria-expanded",
+cartElement.classList.contains("active")
+);
 
 }
 
@@ -1695,6 +1778,7 @@ function closeCart(){
 document
 .getElementById("cart")
 .classList.remove("active");
+document.getElementById("cartLauncher").setAttribute("aria-expanded", "false");
 
 }
 
@@ -1724,12 +1808,16 @@ let message =
 cart.forEach((item,index)=>{
 
 message +=
-`${index+1}. ${item.name} - ₹${item.price}\n`;
+`${index+1}. ${item.name} - ${item.details ? "Price to be confirmed" : `₹${item.price}`}\n`;
+
+if (item.details) {
+message += item.details.map(([label,value]) => `   ${label}: ${value}`).join("\n") + "\n";
+}
 
 });
 
 message +=
-`%0A💰 *Total: ₹${total}*`;
+`\n💰 *Total: ₹${total}*`;
 
 message +=
 "\nPlease confirm my order. 😊";
@@ -1765,24 +1853,22 @@ const flavor = formData.get("flavor") === "Other / please advise"
 const weight = formData.get("weight") === "Custom weight"
     ? formData.get("customWeight")
     : formData.get("weight");
-const message = [
-"🍰 *Custom Cake Request - Bite Bakery*",
-"",
-`*Name:* ${formData.get("name")}`,
-`*Phone:* ${formData.get("phone")}`,
-`*Email:* ${formData.get("email") || "Not provided"}`,
-`*Celebration date:* ${formData.get("eventDate")}`,
-`*Delivery address:* ${formData.get("address")}`,
-`*Flavor:* ${flavor}`,
-`*Weight:* ${weight}`,
-`*Cake color:* ${color}`,
-`*Cake message:* ${formData.get("cakeMessage") || "None"}`,
-`*Celebration extras:* ${extras.length ? extras.join(", ") : "None"}`,
-`*Design and other details:* ${formData.get("details") || "None"}`
-].join("\n");
+const cakeDetails = [
+["Celebration date", formData.get("eventDate")],
+["Flavor", flavor],
+["Weight", weight],
+["Cake color", color || "Not specified"],
+["Cake message", formData.get("cakeMessage") || "None"],
+["Celebration extras", extras.length ? extras.join(", ") : "None"],
+["Design and other details", formData.get("details") || "None"]
+];
 
-const phone = "918523919810";
-window.open("https://wa.me/" + phone + "?text=" + encodeURIComponent(message), "_blank");
+addToCart("Custom Cake Request", 0, cakeDetails);
+form.reset();
+cakeFlavorSelect.dispatchEvent(new Event("change"));
+cakeWeightSelect.dispatchEvent(new Event("change"));
+document.getElementById("custom-order-status").textContent =
+"Custom cake added to cart. Add other treats, then open your cart to check out.";
 
 }
 
